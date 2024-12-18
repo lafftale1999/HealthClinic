@@ -1,8 +1,6 @@
-#include <iostream>
+#include "include/clinic.h"
 
 int main()
 {
-    std::cout << "Hello world" << std::endl;
-
     return 0;
 }
