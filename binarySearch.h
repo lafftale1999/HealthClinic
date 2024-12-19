@@ -5,6 +5,6 @@
 #include "include/clinic.h"
 
 // Client *binarySearch(Clinic *clientlist,int size, std::string target);
-Client *binarySearch(Clinic *clientlist, int size, const std::string& target);
+Client *binarySearch(std::vector<Client>& clientlist, const std::string target);
 
 #endif

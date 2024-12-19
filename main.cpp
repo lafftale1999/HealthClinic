@@ -11,7 +11,9 @@ int main()
 
     const int AntalAccounts = 100;
 
-    std::ifstream MyFile("randomNumbers.txt");if (!MyFile.is_open()) {
+    // std::ifstream MyFile("randomNumbers.txt");
+    std::ifstream MyFile("sorted.txt");
+    if (!MyFile.is_open()) {
         std::cerr << "Error opening file." << std::endl;
         return 1;  // Return an error if the file cannot be opened
     }
@@ -24,26 +26,31 @@ int main()
         }
     }   
     MyFile.close();
+
     std::sort(clinic.getClients().getList().begin(), clinic.getClients().getList().end()); 
 
-    std::ofstream sorted("sorted.txt");
-    for (Client client : clinic.getClients().getList()) {
-        sorted << client.getClientId() << std::endl;
-    }
+    // std::ofstream sorted("sorted.txt");
+    // for (Client client : clinic.getClients().getList()) {
+    //     sorted << client.getClientId() << std::endl;
+    // }
+    // sorted.close();
 
-    for(int i = 0; i < AntalAccounts; i++){
-        std::cout << clinic.getClients().getClient(i).getClientId() << std::endl;
-    }
+    std::string target = "190384";
 
-    std::string target = "915384";
-
-     Client* result = binarySearch(&clinic, clinic.getClients().getList().size(), target);
+     Client* result = binarySearch(clinic.getClients().getList(), target);
     if (result != nullptr) {
-        std::cout << "Found client with ID: " << result->getClientId() << std::endl;
+        std::cout << "Found client with ID: " << result->getClientId() << std::endl;        
+        result->setClientId("111111");
+        std::cout << "Found client replaced with ID: " << result->getClientId() << std::endl;
     } else {
         std::cout << "Client not found" << std::endl;
     }
 
+     std::ofstream sorted("sorted.txt");
+    for (Client client : clinic.getClients().getList()) {
+        sorted << client.getClientId() << std::endl;
+    }
+    sorted.close();
 
 return 0;
 }
