@@ -1,8 +1,8 @@
 #include "include/clinic.h"
+#include "binarySearch.h"
 #include <fstream>
 #include <iomanip> // For std::setw and std::setfill
 #include <algorithm>
-#include "binarySearch.h"
 
 int main()
 {
@@ -15,7 +15,6 @@ int main()
     std::ifstream orginalfile("randomNumbers.txt");
     if (!orginalfile.is_open()) {
         std::cerr << "Error opening file." << std::endl;
-        return 1;  // Return an error if the file cannot be opened
     }
     // Read each line until EOF and add clients
     while (std::getline(orginalfile, line)) {
@@ -32,8 +31,8 @@ int main()
         }
     }
     orginalfile.close();
-    std::cout << "Successfully processed " << addedclientcount << " clients from the file." << std::endl;
-
+    // std::cout << "Successfully processed " << addedclientcount << " clients from the file." << std::endl;
+// sorting the clients
     std::sort(clinic.getClients().getList().begin(), clinic.getClients().getList().end()); 
 
     std::string target = "415826";
