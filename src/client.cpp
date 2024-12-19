@@ -19,3 +19,8 @@ std::string Client::getClientId()
 {
     return this->clientId;
 }
+// Comparison operator for sorting
+bool Client::operator<(const Client& other) const
+{
+    return this->clientId < other.clientId;  // Compare based on clientId
+}
