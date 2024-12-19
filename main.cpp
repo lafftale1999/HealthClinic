@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip> // For std::setw and std::setfill
 #include <algorithm>
+#include <chrono>
 
 int main()
 {
@@ -11,6 +12,7 @@ int main()
     std::string line;
     int addedclientcount = 0;
 
+    auto startTime = std::chrono::high_resolution_clock::now();
     // Open the randomNumbers.txt file and load the data into the vector
     std::ifstream orginalfile("randomNumbers.txt");
     if (!orginalfile.is_open()) {
@@ -31,12 +33,22 @@ int main()
         }
     }
     orginalfile.close();
+    auto endTime = std::chrono::high_resolution_clock::now();
+    std::cout << "READING AND ADDING Took: " << std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count() << " nanoseconds" << std::endl;
     // std::cout << "Successfully processed " << addedclientcount << " clients from the file." << std::endl;
 // sorting the clients
+    std::cout << "SORTING: " << std::endl;
+    startTime = std::chrono::high_resolution_clock::now();
     std::sort(clinic.getClients().getList().begin(), clinic.getClients().getList().end()); 
+    endTime = std::chrono::high_resolution_clock::now();
+    std::cout << "SORTING Took: " << std::chrono::duration_cast<std::chrono::nanoseconds>(endTime    - startTime).count() << " nanoseconds" << std::endl;
 
     std::string target = "415826";
+    startTime = std::chrono::high_resolution_clock::now();
     Client* result = binarySearch(clinic.getClients().getList(), target);
+    endTime = std::chrono::high_resolution_clock::now();
+    std::cout << "BINARY SEARCH Took: " << std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count() << " nanoseconds" << std::endl;
+    
     if (result != nullptr) {
         std::cout << "Found client with ID: " << result->getClientId() << std::endl;        
         // result->setClientId("111111");
