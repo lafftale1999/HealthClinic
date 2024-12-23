@@ -1,5 +1,4 @@
 #include "include/clinic.h"
-#include "binarySearch.h"
 #include "queue.h"
 #include <iostream>
 #include <fstream>
@@ -48,9 +47,10 @@ void addmyclientsfromfile(Clinic &clinic)
     endTime = std::chrono::high_resolution_clock::now();
     std::cout << "SORTING Took: " << std::chrono::duration_cast<std::chrono::nanoseconds>(endTime    - startTime).count() << " nanoseconds" << std::endl;
 
-   /* std::string target = "415826";
+    std::string target = "415826";
     startTime = std::chrono::high_resolution_clock::now();
-    Client* result = binarySearch(clinic.getClients().getList(), target);
+    // Client* result = binarySearch(clinic.getClients().getList(), target);
+    Client* result = clinic.getClients().binarySearch(clinic.getClients().getList(), target);
     endTime = std::chrono::high_resolution_clock::now();
     std::cout << "BINARY SEARCH Took: " << std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count() << " nanoseconds" << std::endl;
     
@@ -61,6 +61,7 @@ void addmyclientsfromfile(Clinic &clinic)
     } else {
         std::cout << "Client not found" << std::endl;
     }
+    /*
     
     // std::sort(clinic.getClients().getList().begin(), clinic.getClients().getList().end()); 
 
