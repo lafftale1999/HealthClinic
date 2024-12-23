@@ -1,0 +1,225 @@
+
+=====================
+Client 1: 02
+Client 2: 01
+Client 3: 09
+Client 4: 03
+Client 5: 07
+Client 6: 08
+Client 7: 04
+Client 8: 10
+Client 9: 06
+Client 10: 05
+
+=====================
+
+
+=====================
+Client 1: 04
+Client 2: 06
+Client 3: 08
+Client 4: 09
+Client 5: 07
+Client 6: 02
+Client 7: 01
+Client 8: 10
+Client 9: 05
+Client 10: 03
+
+=====================
+
+
+=====================
+Client 1: 04
+Client 2: 07
+Client 3: 03
+Client 4: 02
+Client 5: 09
+Client 6: 10
+Client 7: 05
+Client 8: 08
+Client 9: 06
+Client 10: 01
+
+=====================
+
+
+=====================
+Client 1: 09
+Client 2: 04
+Client 3: 06
+Client 4: 01
+Client 5: 10
+Client 6: 08
+Client 7: 03
+Client 8: 07
+Client 9: 05
+Client 10: 02
+
+=====================
+
+
+=====================
+Client 1: 05
+Client 2: 08
+Client 3: 06
+Client 4: 07
+Client 5: 10
+Client 6: 02
+Client 7: 01
+Client 8: 09
+Client 9: 04
+Client 10: 03
+
+=====================
+
+
+=====================
+Client 1: 05
+Client 2: 08
+Client 3: 02
+Client 4: 09
+Client 5: 03
+Client 6: 07
+Client 7: 06
+Client 8: 10
+Client 9: 01
+Client 10: 04
+
+=====================
+
+
+=====================
+Client 1: 07
+Client 2: 04
+Client 3: 01
+Client 4: 10
+Client 5: 03
+Client 6: 02
+Client 7: 05
+Client 8: 09
+Client 9: 06
+Client 10: 08
+
+=====================
+
+
+=====================
+1: Client 09
+2: Client 08
+3: Client 06
+4: Client 07
+5: Client 05
+6: Client 01
+7: Client 03
+8: Client 02
+9: Client 04
+10: Client 10
+
+=====================
+
+
+=====================
+1: Client 10
+2: Client 09
+3: Client 04
+4: Client 02
+5: Client 03
+6: Client 01
+7: Client 05
+8: Client 06
+9: Client 07
+10: Client 08
+
+=====================
+
+
+=====================
+1: Client 07
+2: Client 03
+3: Client 09
+4: Client 08
+5: Client 10
+6: Client 06
+7: Client 04
+8: Client 05
+9: Client 01
+10: Client 02
+
+=====================
+
+
+=====================
+1: Client 01
+2: Client 09
+3: Client 06
+4: Client 04
+5: Client 10
+6: Client 02
+7: Client 03
+8: Client 07
+9: Client 08
+10: Client 05
+
+=====================
+
+
+=====================
+1: Client 0000000001
+2: Client 0000000005
+3: Client 0000000006
+4: Client 0000000002
+5: Client 0000000000
+6: Client 0000000008
+7: Client 0000000004
+8: Client 0000000007
+9: Client 0000000003
+10: Client 0000000009
+
+=====================
+
+
+=====================
+1: Client 04
+2: Client 09
+3: Client 05
+4: Client 02
+5: Client 08
+6: Client 00
+7: Client 06
+8: Client 03
+9: Client 07
+10: Client 01
+
+=====================
+
+
+=====================
+1: Client 0298
+2: Client 0752
+3: Client 0690
+4: Client 0098
+5: Client 0167
+6: Client 0483
+7: Client 0268
+8: Client 0740
+9: Client 0961
+10: Client 0532
+
+=====================
+
+
+=====================
+1: Client 03
+2: Client 01
+3: Client 07
+4: Client 05
+5: Client 09
+6: Client 00
+7: Client 08
+8: Client 06
+9: Client 02
+10: Client 04
+
+=====================
+

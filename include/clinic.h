@@ -10,6 +10,7 @@ class Clinic
 public:
     Clinic();
     ClientStorage& getClients();
+    void addClient(std::string clientId);
 };
 
 #endif

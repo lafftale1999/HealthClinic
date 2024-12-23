@@ -1,6 +1,5 @@
 #include "../include/clientStorage.h"
 
-
 ClientStorage::ClientStorage()
 {
 

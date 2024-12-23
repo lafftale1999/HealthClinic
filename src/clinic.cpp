@@ -5,13 +5,12 @@ Clinic::Clinic()
 
 }
 
-
 ClientStorage& Clinic::getClients()
 {
     return this->clients;
 }
 
-void runClinic(std::string id)
-{
-    
+void Clinic::addClient(std::string clientId){
+    Client newClient(clientId);
+    this->clients.addClient(newClient);
 }
