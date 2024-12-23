@@ -9,3 +9,8 @@ ClientStorage& Clinic::getClients()
 {
     return this->clients;
 }
+
+void runClinic(std::string id)
+{
+    
+}
