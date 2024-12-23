@@ -72,9 +72,11 @@ void addmyclientsfromfile(Clinic &clinic)
     }
     sorted.close();*/
 }
+
 void initializeRandomSeed() {
     std::srand(static_cast<unsigned>(std::time(nullptr))); // Seed rand() with the current time
 }
+
 int main()
 {
     

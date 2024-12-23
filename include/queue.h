@@ -8,16 +8,63 @@
 template <typename T, size_t SIZE>
 class Queue {
 private:
-    T data[SIZE];  // Statisk array för att lagra ködata
+    T data[this->SIZE];  // Statisk array för att lagra ködata
     size_t front;  // Pekare för första elementet
     size_t end;   // Pekare för sista elementet
     size_t count;  // Antal element i kön
     std::mutex mtx;
     std::condition_variable cv;
+    bool stop = false;
 
 public:
     // Konstruktor
     Queue() : front(0), end(0), count(0) {}
+
+    ~Queue()
+    {
+        this->stop = true;
+        this->cv.notify_all();
+    }
+
+    void addToQueue(int span)
+    {
+        std::unique_lock<std::mutex> lock(this->mtx);
+
+        while(1)
+        {
+            this->cv.wait(lock, [this] {
+                return this->size() < this->SIZE || stop;
+            });
+            
+            if(stop) return;
+
+            int rnd = rand() % span;
+
+            this->enqueue(std::to_string(rnd));
+
+            cv.notify_one();
+
+            lock.unlock();
+        }
+    }
+
+    std::string getFromQueue()
+    {
+        std::unique_lock<std::mutex> lock(this->mtx);
+
+        this->cv.wait(lock, [this] {
+            return this->size() > 0;
+        });
+        
+        std::string item = this->data[this->front];
+        this->dequeue(this->data[front]);
+
+        cv.notify_one();
+
+        lock.unlock();
+
+        return item;
+    }
 
     // Metod för att lägga till element i kön (enqueue)
     bool enqueue(const T& item) {
