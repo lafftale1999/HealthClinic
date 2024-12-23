@@ -133,3 +133,33 @@ Client 10: 08
 
 =====================
 
+
+=====================
+1: Client 07
+2: Client 03
+3: Client 09
+4: Client 08
+5: Client 10
+6: Client 06
+7: Client 04
+8: Client 05
+9: Client 01
+10: Client 02
+
+=====================
+
+
+=====================
+1: Client 01
+2: Client 09
+3: Client 06
+4: Client 04
+5: Client 10
+6: Client 02
+7: Client 03
+8: Client 07
+9: Client 08
+10: Client 05
+
+=====================
+
