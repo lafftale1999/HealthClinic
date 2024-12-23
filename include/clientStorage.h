@@ -4,12 +4,14 @@
 #include "client.h"
 #include <vector>
 
+#define CLIENT_PATH "data/clients.txt"
 class ClientStorage
 {
     std::vector<Client> clients;
 
 public:
     ClientStorage();
+    void createClients(int amount);
     void addClient(Client client);
     Client& getClient(int index);
     std::vector<Client>& getList();

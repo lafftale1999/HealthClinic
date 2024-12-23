@@ -1,4 +1,5 @@
 #include "../include/clientStorage.h"
+#include <ctime>
 
 ClientStorage::ClientStorage()
 {
@@ -8,6 +9,25 @@ ClientStorage::ClientStorage()
 void ClientStorage::addClient(Client client)
 {
     this->clients.push_back(client);
+}
+
+void ClientStorage::createClients(int amount)
+{
+    for(int i = 0; i < amount; i++)
+    {
+        this->addClient(Client(std::to_string(i)));
+    }
+
+    srand(time(NULL));
+    for(int i = this->getList().size() - 1; i > 0; i--)
+    {
+        int j = rand() % (i + 1);
+
+        //Shuffle
+        Client temp = this->getClient(i);
+        this->getClient(i) = this->getClient(j);
+        this->getClient(j) = temp;
+    }
 }
 
 Client& ClientStorage::getClient(int index)
