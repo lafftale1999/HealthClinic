@@ -1,8 +1,7 @@
-#include <iostream> 
-#include "queue.h"
-#include <queue>
+#ifndef QUEUE_H
+#define QUEUE_H
 
-
+#include <string>
 template <typename T, size_t SIZE>
 class Queue {
 private:
@@ -51,31 +50,17 @@ public:
     size_t size() const {
         return count;
     }
+
+    // getters
+    T* getArray()
+    {
+        return this->data;
+    }
+
+    T& getData(int index)
+    {
+        return this->data[index];
+    }
 };
 
-int main() {
-    // Skapa en kö med kapacitet 5
-    Queue<int, 5> q;
-
-    // Testa att lägga till och ta bort element
-    if (q.enqueue(10)) {
-        std::cout << "Enqueued 10\n";
-    } else {
-        std::cout << "Failed to enqueue 10\n";
-    }
-
-    if (q.enqueue(20)) {
-        std::cout << "Enqueued 20\n";
-    } else {
-        std::cout << "Failed to enqueue 20\n";
-    }
-
-    int value;
-    if (q.dequeue(value)) {
-        std::cout << "Dequeued: " << value << "\n";
-    } else {
-        std::cout << "Failed to dequeue\n";
-    }
-
-    return 0;
-};
+#endif

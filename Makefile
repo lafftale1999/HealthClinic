@@ -1,5 +1,5 @@
 PROG = main.exe 
-SRC = main.cpp src/clinic.cpp src/clientStorage.cpp src/client.cpp src/queue.cpp
+SRC = main.cpp src/clinic.cpp src/clientStorage.cpp src/client.cpp
 CFLAGS = -g -std=c++17 -Wall -Werror
 LIBS = 
 CC=g++
