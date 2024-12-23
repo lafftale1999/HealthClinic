@@ -1,4 +1,4 @@
-#include "clinic.h"
+#include "../include/clinic.h"
 
 Clinic::Clinic()
 {

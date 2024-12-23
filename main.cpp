@@ -3,8 +3,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream> //file input/output.
-#include "clientStorage.h"
-#include "clinic.h"
+#include "include/clientStorage.h"
+#include "include/clinic.h"
 
 
 int main(){
@@ -39,7 +39,7 @@ int main(){
     std::cout << "==========================\n";
     for(int i = 0; i < 10; i++){
         Client& client= storage.getClient(i); // get client from storage
-        std::cout << "Client " << (i + 1) << ": " << client.getClientId() << std::endl;
+        std::cout << (i + 1) << ": Client " << client.getClientId() << std::endl;
     }
     std::cout << "===========================\n\n";
 
@@ -50,7 +50,7 @@ int main(){
         fout << "\n=====================\n";
         for(int i = 0; i < 10; i++){
             Client& client = storage.getClient(i);
-            fout << "Client " << (i + 1) << ": " << client.getClientId() << std::endl;
+            fout << (i + 1) << ": Client " << client.getClientId() << std::endl;
         }
         fout << "\n=====================\n\n";
         fout.close();

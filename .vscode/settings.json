@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "string": "cpp"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "c:\\Users\\prett\\Desktop\\nackadev2024\\grupparbete-ds-alg\\HealthClinic",
+            "binaryPath": "c:\\Users\\prett\\Desktop\\nackadev2024\\grupparbete-ds-alg\\HealthClinic\\main.exe",
+            "binaryArgs": []
+        }
+    ]
+}

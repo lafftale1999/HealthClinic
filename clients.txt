@@ -58,3 +58,78 @@ Client 10: 02
 
 =====================
 
+
+=====================
+Client 1: 05
+Client 2: 08
+Client 3: 06
+Client 4: 07
+Client 5: 10
+Client 6: 02
+Client 7: 01
+Client 8: 09
+Client 9: 04
+Client 10: 03
+
+=====================
+
+
+=====================
+Client 1: 05
+Client 2: 08
+Client 3: 02
+Client 4: 09
+Client 5: 03
+Client 6: 07
+Client 7: 06
+Client 8: 10
+Client 9: 01
+Client 10: 04
+
+=====================
+
+
+=====================
+Client 1: 07
+Client 2: 04
+Client 3: 01
+Client 4: 10
+Client 5: 03
+Client 6: 02
+Client 7: 05
+Client 8: 09
+Client 9: 06
+Client 10: 08
+
+=====================
+
+
+=====================
+1: Client 09
+2: Client 08
+3: Client 06
+4: Client 07
+5: Client 05
+6: Client 01
+7: Client 03
+8: Client 02
+9: Client 04
+10: Client 10
+
+=====================
+
+
+=====================
+1: Client 10
+2: Client 09
+3: Client 04
+4: Client 02
+5: Client 03
+6: Client 01
+7: Client 05
+8: Client 06
+9: Client 07
+10: Client 08
+
+=====================
+
