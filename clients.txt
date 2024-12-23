@@ -28,3 +28,33 @@ Client 10: 03
 
 =====================
 
+
+=====================
+Client 1: 04
+Client 2: 07
+Client 3: 03
+Client 4: 02
+Client 5: 09
+Client 6: 10
+Client 7: 05
+Client 8: 08
+Client 9: 06
+Client 10: 01
+
+=====================
+
+
+=====================
+Client 1: 09
+Client 2: 04
+Client 3: 06
+Client 4: 01
+Client 5: 10
+Client 6: 08
+Client 7: 03
+Client 8: 07
+Client 9: 05
+Client 10: 02
+
+=====================
+
