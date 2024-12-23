@@ -5,7 +5,9 @@
 #include <fstream> //file input/output.
 #include "include/clientStorage.h"
 #include "include/clinic.h"
-
+#include "include/queue.h"
+#include <algorithm>
+#include <chrono>
 
 int main(){
     std::vector<int> numbers;
@@ -94,3 +96,4 @@ int main(){
     return 0; 
 
 }
+

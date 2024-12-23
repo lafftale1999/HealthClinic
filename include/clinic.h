@@ -3,8 +3,8 @@
 
 #include "clientStorage.h"
 
-class Clinic {
-private:
+class Clinic
+{
     ClientStorage clients;
 
 public:

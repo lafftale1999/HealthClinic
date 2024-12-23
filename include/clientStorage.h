@@ -6,7 +6,6 @@
 
 class ClientStorage
 {
-private:
     std::vector<Client> clients;
 
 public:
@@ -14,8 +13,8 @@ public:
     void addClient(Client client);
     Client& getClient(int index);
     std::vector<Client>& getList();
-
-    void createClients();
+    Client* binarySearch(std::vector<Client>& clientlist,  const std::string target);
+    
 };
 
 #endif
