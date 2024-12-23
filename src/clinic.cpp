@@ -5,6 +5,7 @@ Clinic::Clinic()
 
 }
 
+
 ClientStorage& Clinic::getClients()
 {
     return this->clients;
