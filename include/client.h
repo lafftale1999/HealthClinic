@@ -12,6 +12,10 @@ public:
     Client(std::string clientId);
     void setClientId(std::string clientId);
     std::string getClientId();
+    
+     // Comparison operator for sorting
+    bool operator<(const Client& other) const;
+    
 };
 
 #endif
