@@ -2,6 +2,9 @@
 #define QUEUE_H
 
 #include <string>
+#include <mutex>
+#include <condition_variable>
+
 template <typename T, size_t SIZE>
 class Queue {
 private:
@@ -9,6 +12,8 @@ private:
     size_t front;  // Pekare för första elementet
     size_t end;   // Pekare för sista elementet
     size_t count;  // Antal element i kön
+    std::mutex mtx;
+    std::condition_variable cv;
 
 public:
     // Konstruktor
