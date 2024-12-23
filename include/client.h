@@ -8,9 +8,9 @@ class Client
 {
 private: 
     std::string clientId;
-    static const size_t ID_LENGTH = 2; // Standard length for patients ID.
 
 public:
+    static int length;
     Client();//Constructor
     explicit Client(std::string clientId);// Constructor with parameter.
     Client(const Client& other); // Copy constructor

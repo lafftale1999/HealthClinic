@@ -13,5 +13,4 @@ ClientStorage& Clinic::getClients()
 void Clinic::addClient(std::string clientId){
     Client newClient(clientId);
     this->clients.addClient(newClient);
-
 }

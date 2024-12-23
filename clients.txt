@@ -163,3 +163,63 @@ Client 10: 08
 
 =====================
 
+
+=====================
+1: Client 0000000001
+2: Client 0000000005
+3: Client 0000000006
+4: Client 0000000002
+5: Client 0000000000
+6: Client 0000000008
+7: Client 0000000004
+8: Client 0000000007
+9: Client 0000000003
+10: Client 0000000009
+
+=====================
+
+
+=====================
+1: Client 04
+2: Client 09
+3: Client 05
+4: Client 02
+5: Client 08
+6: Client 00
+7: Client 06
+8: Client 03
+9: Client 07
+10: Client 01
+
+=====================
+
+
+=====================
+1: Client 0298
+2: Client 0752
+3: Client 0690
+4: Client 0098
+5: Client 0167
+6: Client 0483
+7: Client 0268
+8: Client 0740
+9: Client 0961
+10: Client 0532
+
+=====================
+
+
+=====================
+1: Client 03
+2: Client 01
+3: Client 07
+4: Client 05
+5: Client 09
+6: Client 00
+7: Client 08
+8: Client 06
+9: Client 02
+10: Client 04
+
+=====================
+

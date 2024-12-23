@@ -14,6 +14,8 @@ public:
     void addClient(Client client);
     Client& getClient(int index);
     std::vector<Client>& getList();
+
+    void createClients();
 };
 
 #endif

@@ -32,6 +32,27 @@ int main(){
         clinic.addClient(std::to_string(num));
     }
 
+    /* #define MAX_CLIENTS 10
+    Clinic clinic;
+    
+    Client::length = MAX_CLIENTS;
+
+    for(int i = 0; i < MAX_CLIENTS; i++)
+    {
+        clinic.addClient(std::to_string(i));
+    }
+
+    srand(time(NULL));
+    for(int i = clinic.getClients().getList().size() - 1; i > 0; i--)
+    {
+        int j = rand() % (i + 1);
+
+        //Shuffle
+        Client temp = clinic.getClients().getClient(i);
+        clinic.getClients().getClient(i) = clinic.getClients().getClient(j);
+        clinic.getClients().getClient(j) = temp;
+    } */
+
     
     //Print all client IDs
     ClientStorage& storage = clinic.getClients();//get storage from clinic.
@@ -43,6 +64,8 @@ int main(){
     }
     std::cout << "===========================\n\n";
 
+
+    // CREATE / NOT
     //Save to file:
     std::ofstream fout;
     fout.open("clients.txt", std::ios::app);//append mode: for every run, shows in file.
