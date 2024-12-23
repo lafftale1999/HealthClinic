@@ -1,0 +1,30 @@
+
+=====================
+Client 1: 02
+Client 2: 01
+Client 3: 09
+Client 4: 03
+Client 5: 07
+Client 6: 08
+Client 7: 04
+Client 8: 10
+Client 9: 06
+Client 10: 05
+
+=====================
+
+
+=====================
+Client 1: 04
+Client 2: 06
+Client 3: 08
+Client 4: 09
+Client 5: 07
+Client 6: 02
+Client 7: 01
+Client 8: 10
+Client 9: 05
+Client 10: 03
+
+=====================
+

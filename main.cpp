@@ -1,226 +1,73 @@
-#include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include <vector>
-#include <map>
-#include <random>
-#include <chrono>
+#include <iostream>
+#include <fstream> //file input/output.
+#include "clientStorage.h"
+#include "clinic.h"
 
-class BankAccount{
-    std::string accountNumber;
-    float balance;
-public:
-    BankAccount(){
+
+int main(){
+    std::vector<int> numbers;
+    Clinic clinic;
+
+    const int NUM_CLIENTS = 10;
+    for(int i = 1; i <= NUM_CLIENTS; i++){ // created all numbers in order. 
+        numbers.push_back(i);
     }
 
-    BankAccount(std::string accountNumber, float balance = 0)
-    :accountNumber(accountNumber),balance(balance)
-    {
+    srand(time(0));// seed the random number generator.
+    //Shuffle the numbers.
+    for(int i = numbers.size() - 1; i > 0; i--){
+        int j = rand() % (i + 1);
+        //Shuffle
+        int temp = numbers[i];
+        numbers[i] = numbers[j];
+        numbers[j] = temp;
     }
 
-    std::string getAccountNumber()
-    {
-	    return this->accountNumber;
-    }
-};
 
-//INTERFACE - gränssnitt "standard"
-class IAccountStorage {
-public:    
-    virtual void addAccount(BankAccount account) = 0;
-	virtual BankAccount *findAccount(std::string accountNumber) = 0;        
-};
-
-class MapStorage : public IAccountStorage{
-    std::map<std::string,BankAccount> accounts;
-public:
-    void addAccount(BankAccount account) override{
-        accounts[account.getAccountNumber()] = account;
+    //Create clients using the random numbers.
+    for(int num : numbers){
+        clinic.addClient(std::to_string(num));
     }
-    BankAccount *findAccount(std::string accountNumber){
-        return &accounts[accountNumber];
-    } 
+
     
-};
+    //Print all client IDs
+    ClientStorage& storage = clinic.getClients();//get storage from clinic.
+    std::cout << "Current run; \n";
+    std::cout << "==========================\n";
+    for(int i = 0; i < 10; i++){
+        Client& client= storage.getClient(i); // get client from storage
+        std::cout << "Client " << (i + 1) << ": " << client.getClientId() << std::endl;
+    }
+    std::cout << "===========================\n\n";
 
-class DistributedVectorAccountStorage : public IAccountStorage{
-        std::vector<BankAccount> accounts0;
-        std::vector<BankAccount> accounts1;
-        std::vector<BankAccount> accounts2;
-        std::vector<BankAccount> accounts3;
-        std::vector<BankAccount> accounts4;
-        std::vector<BankAccount> accounts5;
-        std::vector<BankAccount> accounts6;
-        std::vector<BankAccount> accounts7;
-        std::vector<BankAccount> accounts8;
-        std::vector<BankAccount> accounts9;
-    
-    public:
-    void addAccount(BankAccount account) override{
-        if(account.getAccountNumber().at(0) == '0'){
-            accounts0.push_back(account);
-        }       
-        else if(account.getAccountNumber().at(0) == '1'){
-            accounts1.push_back(account);
+    //Save to file:
+    std::ofstream fout;
+    fout.open("clients.txt", std::ios::app);//append mode: for every run, shows in file.
+    if(fout.is_open()){
+        fout << "\n=====================\n";
+        for(int i = 0; i < 10; i++){
+            Client& client = storage.getClient(i);
+            fout << "Client " << (i + 1) << ": " << client.getClientId() << std::endl;
         }
-        else if(account.getAccountNumber().at(0) == '2'){
-            accounts2.push_back(account);
-        }
-        else if(account.getAccountNumber().at(0) == '3'){
-            accounts3.push_back(account);
-        }
-        else if(account.getAccountNumber().at(0) == '4'){
-            accounts4.push_back(account);
-        }
-        else if(account.getAccountNumber().at(0) == '5'){
-            accounts5.push_back(account);
-        }
-        else if(account.getAccountNumber().at(0) == '6'){
-            accounts6.push_back(account);
-        }
-        else if(account.getAccountNumber().at(0) == '7'){
-            accounts7.push_back(account);
-        }
-        else if(account.getAccountNumber().at(0) == '8'){
-            accounts8.push_back(account);
-        }
-        else if(account.getAccountNumber().at(0) == '9'){
-            accounts9.push_back(account);
-        }
+        fout << "\n=====================\n\n";
+        fout.close();
+        std::cout << "Clients saved to file successfully!\n\n";
     }
 
-    BankAccount *findAccount( std::string accountNumber){
-        BankAccount *ret = nullptr;
-        std::vector<BankAccount> &accounts = accounts0;
-
-        if(accountNumber.at(0) == '1'){
-            accounts = accounts1;
+    //Read from file 
+    std::ifstream fin("clients.txt");
+    if(fin.is_open()) {
+        std::string line;
+        std::cout << "Reading from file:\n";
+        while(getline(fin,line)){
+            std::cout << line << std::endl;
         }
-        if(accountNumber.at(0) == '2'){
-            accounts = accounts2;
-        }
-        if(accountNumber.at(0) == '3'){
-            accounts = accounts3;
-        }
-        if(accountNumber.at(0) == '4'){
-            accounts = accounts4;
-        }
-        if(accountNumber.at(0) == '5'){
-            accounts = accounts5;
-        }
-        if(accountNumber.at(0) == '6'){
-            accounts = accounts7;
-        }
-        if(accountNumber.at(0) == '7'){
-            accounts = accounts7;
-        }
-       if(accountNumber.at(0) == '8'){
-            accounts = accounts8;
-        }
-          if(accountNumber.at(0) == '9'){
-            accounts = accounts9;
-        }
-
-
-        for(BankAccount &account : accounts){
-            if(account.getAccountNumber() == accountNumber ){
-                //ret = &account;      
-                return &account;                                  
-            }
-        }
-        return ret;
-  
-
+        fin.close();
     }
 
-};
+    return 0; 
 
-class VectorAccountStorage: public IAccountStorage{
-        std::vector<BankAccount> accounts;
-public:
-    void addAccount(BankAccount account) override{
-        accounts.push_back(account);
-    }
-
-    BankAccount *findAccount(std::string accountNumber){
-        BankAccount *ret = nullptr;
-        for(BankAccount &account : accounts){
-            if(account.getAccountNumber() == accountNumber ){
-                //ret = &account;      
-                return &account;                                  
-            }
-        }
-        return ret;
-    }
-    
-
-};
-
-
-
-
-class Bank
-{
-private:
-	IAccountStorage * accountStorage;
-public:
-	Bank(IAccountStorage *storage):accountStorage(storage){
-
-    }
-	bool addAccount(std::string accountNumber){
-        //validate
-        //if something (accountNumber) return false
-        accountStorage->addAccount(accountNumber);
-        return true;
-    }
-	BankAccount *getAccount(std::string accountNumber){
-        return accountStorage->findAccount(accountNumber);
-    }
-};
-
-
-
-int main(int, char**){
-    //VectorAccountStorage storage;
-    //VectorAccountStorage storage;
-    //MapStorage storage;
-    DistributedVectorAccountStorage storage;
-    //MapAccountStor age storage;
-    Bank bank(&storage);
-
-    const int AntalAccounts =  10000000;
-
-
-    std::string sFirst = ""; 
-    std::string sLast = ""; 
-    std::string sNotFound = "notfound"; 
-
-    std::cout << "INITIALIZE: " << std::endl;
-    auto startTime = std::chrono::high_resolution_clock::now();
-    for(int i = 0;i < AntalAccounts; i++){
-        std::string accountNumber =  std::to_string(i);
-        if(i == 0){
-            sFirst = accountNumber;
-        }
-        if(i == AntalAccounts-1){
-            sLast = accountNumber;
-        }
-        bank.addAccount(accountNumber);
-    }
-
-    auto endTime = std::chrono::high_resolution_clock::now();
-    std::cout << "INIT Took: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime    - startTime).count() << " milliseconds" << std::endl;
-
-    startTime = std::chrono::high_resolution_clock::now();
-    BankAccount *p = bank.getAccount(sFirst);
-    endTime = std::chrono::high_resolution_clock::now();
-    std::cout << p->getAccountNumber() << " took: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime    - startTime).count() << " milliseconds" << std::endl;
-
-    startTime = std::chrono::high_resolution_clock::now();
-    p = bank.getAccount(sLast);
-    endTime = std::chrono::high_resolution_clock::now();
-    std::cout << p->getAccountNumber() << " took: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime    - startTime).count() << " milliseconds" << std::endl;
-
-    startTime = std::chrono::high_resolution_clock::now();
-    p = bank.getAccount(sNotFound);
-    endTime = std::chrono::high_resolution_clock::now();
-    std::cout << "NOT FOUND" << " took: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime    - startTime).count() << " milliseconds" << std::endl;
 }
