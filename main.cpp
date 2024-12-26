@@ -5,27 +5,16 @@
 
 int main()
 {
-    int amount = 10000;
-    Clinic clinic(amount, CREATE);
-    
-    int checksum = 0;
+    try {
+        int amount = 10000000;
+        Clinic clinic(amount, CREATE);
 
-    for(int i = 0; i < 10000; i++)
-    {
-        for(Client& client : clinic.getClients().getList())
-        {   
-            Client temp = Client(std::to_string(i));
-            if(temp.getClientId() == client.getClientId())
-            {
-                checksum++;
-                break;
-            }
-        }
-
+        clinic.openClinic();
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Error: " << ex.what() << std::endl;
     }
 
-    std::cout << checksum << std::endl;
-    
-    return 0; 
+    return 0;
 }
 

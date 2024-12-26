@@ -4,6 +4,8 @@
 #include <string>
 #include <mutex>
 #include <condition_variable>
+#include <iostream>
+#include <atomic>
 
 template <typename T, size_t SIZE>
 class Queue {
@@ -15,7 +17,7 @@ private:
     size_t span;
     std::mutex mtx;
     std::condition_variable cv;
-    bool stop = false;
+    std::atomic<bool> stop = false;
 
 public:
     // Konstruktor
@@ -24,69 +26,108 @@ public:
 
     ~Queue()
     {
-        this->stop = true;
-        this->cv.notify_all();
+        {
+            std::unique_lock<std::mutex> lock(this->mtx);
+            stop = true; // Signalera avslutning
+        }
+        this->cv.notify_all(); // Väcka alla väntande trådar
+        std::cout << "[Queue] Destructor called, stop flag set" << std::endl;
     }
 
     void addToQueue()
     {
-        std::unique_lock<std::mutex> lock(this->mtx);
+        try {
+            std::unique_lock<std::mutex> lock(this->mtx);
 
-        while(1)
+            while (true)
+            {
+                this->cv.wait(lock, [this] {
+                    return this->size() < SIZE || stop;
+                });
+
+                if (stop)
+                {
+                    std::cout << "[addToQueue] Stop flag detected, exiting loop" << std::endl;
+                    break;
+                }
+
+                int rnd = rand() % this->span;
+
+                if (!this->enqueue(rnd)) std::cout << "[addToQueue] Client add failed (queue full)" << std::endl;
+
+                this->cv.notify_one();
+            }
+
+            std::cout << "[addToQueue] Finished processing queue" << std::endl;
+        }
+
+        catch (const std::exception& e)
         {
-            this->cv.wait(lock, [this] {
-                return this->size() < this->SIZE || stop;
-            });
-            
-            if(stop) return;
-
-            int rnd = rand() % this->span;
-
-            this->enqueue(rnd);
-
-            cv.notify_one();
-
-            lock.unlock();
+            std::cerr << "[addToQueue] Exception: " << e.what() << std::endl;
         }
     }
 
-    T& getFromQueue()
+    T getFromQueue()
     {
-        std::unique_lock<std::mutex> lock(this->mtx);
+        try
+        {
+            std::unique_lock<std::mutex> lock(this->mtx);
 
-        this->cv.wait(lock, [this] {
-            return this->size() > 0;
-        });
+            this->cv.wait(lock, [this] {
+                return this->size() > 0 || stop;
+            });
+
+            if (stop && this->size() == 0)
+            {
+                std::cout << "[getFromQueue] Stop flag detected and queue is empty" << std::endl;
+                throw std::runtime_error("Queue stopped and empty");
+            }
+
+            T item = this->data[this->front];
+
+            this->dequeue(this->data[front]);
+
+            this->cv.notify_one();
+
+            return item;
+        }
         
-        T item = this->data[this->front];
-        this->dequeue(this->data[front]);
-
-        cv.notify_one();
-
-        lock.unlock();
-
-        return item;
+        catch (const std::exception& e)
+        {
+            std::cerr << "[getFromQueue] Exception: " << e.what() << std::endl;
+            throw; // Vidarebefordra undantaget
+        }
     }
 
-    // Metod för att lägga till element i kön (enqueue)
-    bool enqueue(const T& item) {
-        if (count == SIZE) {  // Om kön är full, kan vi inte lägga till fler element
-            return false;  // Felkod - kön är full
+    bool enqueue(const T& item)
+    {
+        if (count == SIZE)
+        {
+            std::cout << "[enqueue] Queue is full, cannot add item" << std::endl;
+            return false; // Kön är full
         }
-        this->data[end] = item;  // Lägg till elementet i slutet av kön
-        end = (end + 1) % SIZE;  // Flytta end pekaren, med cirkulär hantering
-        count++;  // Öka antalet element
+
+        this->data[end] = item;
+        end = (end + 1) % SIZE; // Cirkulär hantering
+        count++;
+
         return true;
     }
 
     // Metod för att ta bort element från kön (dequeue)
-    bool dequeue(T& item) {
-        if (count == 0) {  // Om kön är tom, kan vi inte ta bort något element
-            return false;  // Felkod - kön är tom
+    bool dequeue(T& item)
+    {
+
+        if (count == 0)
+        {
+            std::cout << "[dequeue] Queue is empty, cannot remove item" << std::endl;
+            return false; // Kön är tom
         }
-        item = data[front];  // Ta det första elementet från kön
-        front = (front + 1) % SIZE;  // Flytta front pekaren, med cirkulär hantering
-        count--;  // Minska antalet element
+
+        item = data[front];
+        front = (front + 1) % SIZE; // Cirkulär hantering
+        count--;
+
         return true;
     }
 

@@ -1,6 +1,6 @@
 #include "../include/clinic.h"
+
 #include <iostream>
-#include <thread>
 
 Clinic::Clinic(unsigned int amountOfClients, Command c)
 {
@@ -15,12 +15,59 @@ Clinic::Clinic(unsigned int amountOfClients, Command c)
     else this->clients.readClientsFromFile();
 
     this->queue.setSpan(amountOfClients);
+
+    this->clients.sortClients();
 }
 
-/* void Clinic::runClinic()
+void Clinic::openClinic()
 {
-    std::thread queueThread([this] {this->queue.addToQueue();});
-} */
+    queueThread = std::thread([this] {this->queue.addToQueue();});
+    clinicThread = std::thread([this] {this->runClinic();});
+
+    stopClinic();
+}
+
+void Clinic::runClinic()
+{
+    try
+    {
+        while (1)
+        {
+            Client temp = Client(std::to_string(this->queue.getFromQueue()));
+            std::vector<std::string> messages = {"Find client", "New Client", "Exit"};
+            int index = this->GUI.printMenu("SUPER HEALTHY CLINIC", "You are currently serving client: " + temp.getClientId(), messages);
+
+            if (index == 0)
+            {
+                Client* clientP = this->clients.binarySearch(temp);
+                if (clientP == nullptr) std::cout << "Client " << temp.getClientId() << " was not found in list!" << std::endl;
+            }
+
+            else if (index == 1) continue;
+            else if (index == 2) break;
+            else continue;
+        }
+    
+    }
+    
+    catch (const std::exception& e)
+    {
+        std::cerr << "[runClinic] Exception caught: " << e.what() << std::endl;
+    }
+    
+    catch (...)
+    {
+        std::cerr << "[runClinic] Unknown exception caught" << std::endl;
+    }
+
+    stopClinic();
+}
+
+void Clinic::stopClinic()
+{
+    if(clinicThread.joinable()) clinicThread.join();
+    if(queueThread.joinable()) queueThread.join();
+}
 
 ClientStorage& Clinic::getClients()
 {

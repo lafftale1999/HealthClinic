@@ -4,6 +4,8 @@
 #include <fstream>
 #include <chrono>
 #include <utility>
+#include <thread>
+#include <algorithm>
 
 ClientStorage::ClientStorage()
 {
@@ -37,7 +39,9 @@ void ClientStorage::createClients(int amount)
 
     auto finish = std::chrono::high_resolution_clock::now();
 
-    std::cout << "CLIENT CREATION TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl;
+    std::cout << "CLIENT CREATION TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl << std::endl;
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
 void ClientStorage::writeClientsToFile()
@@ -55,7 +59,8 @@ void ClientStorage::writeClientsToFile()
     File.close();
 
     auto finish = std::chrono::high_resolution_clock::now();
-    std::cout << "WRITING TO FILE TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl;
+    std::cout << "WRITING TO FILE TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
 bool ClientStorage::readClientsFromFile()
@@ -88,7 +93,8 @@ bool ClientStorage::readClientsFromFile()
     }
 
     auto finish = std::chrono::high_resolution_clock::now();
-    std::cout << "READING CLIENTS FROM FILE TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl;
+    std::cout << "READING CLIENTS FROM FILE TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 
     return true;
 }
@@ -101,6 +107,18 @@ Client& ClientStorage::getClient(int index)
 std::vector<Client>& ClientStorage::getList()
 {
     return this->clients;
+}
+
+void ClientStorage::sortClients()
+{   
+    std::cout << "SORTING CLIENTS" << std::endl;
+    auto begin = std::chrono::high_resolution_clock::now();
+
+    std::sort(this->clients.begin(), this->clients.end());
+    
+    auto finish = std::chrono::high_resolution_clock::now();
+    std::cout << "SORTING CLIENTS TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
 Client* ClientStorage::binarySearch(Client target)
@@ -117,8 +135,13 @@ Client* ClientStorage::binarySearch(Client target)
 
         if (midClient.getClientId() == target.getClientId())
         {
+            auto finish = std::chrono::high_resolution_clock::now();
+
+            std::cout << "FINDING CLIENT " << target.getClientId() <<  " TOOK: " << std::chrono::duration_cast<std::chrono::nanoseconds>(finish - begin).count() << " nanoseconds." << std::endl;
+            std::this_thread::sleep_for(std::chrono::seconds(2));
             return &midClient;
         }
+
         else if (midClient.getClientId() < target.getClientId())
         {
             start = mid + 1;
@@ -128,10 +151,6 @@ Client* ClientStorage::binarySearch(Client target)
             end = mid - 1;
         }
     }
-
-    auto finish = std::chrono::high_resolution_clock::now();
-
-    std::cout << "FINDING CLIENT TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl;
 
     return nullptr;
 }

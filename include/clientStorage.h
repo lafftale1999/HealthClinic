@@ -20,6 +20,7 @@ public:
     Client& getClient(int index);
     std::vector<Client>& getList();
     Client* binarySearch(Client target);
+    void sortClients();
 };
 
 #endif
