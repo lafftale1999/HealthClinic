@@ -17,10 +17,9 @@ class Clinic
     Queue<int, 10> queue;
 
 public:
-    Clinic(int amountOfClients, Command c);
+    Clinic(unsigned int amountOfClients, Command c);
     void runClinic();
     ClientStorage& getClients();
-    void addClient(std::string clientId);
 };
 
 #endif

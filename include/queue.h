@@ -42,7 +42,7 @@ public:
 
             int rnd = rand() % this->span;
 
-            this->enqueue(T);
+            this->enqueue(rnd);
 
             cv.notify_one();
 

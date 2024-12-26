@@ -2,7 +2,7 @@
 #include <iostream>
 #include <thread>
 
-Clinic::Clinic(int amountOfClients, Command c)
+Clinic::Clinic(unsigned int amountOfClients, Command c)
 {
     if(this->clients.getList().size() != amountOfClients || this->clients.getList().empty() || c == CREATE)
     {
@@ -17,17 +17,12 @@ Clinic::Clinic(int amountOfClients, Command c)
     this->queue.setSpan(amountOfClients);
 }
 
-void Clinic::runClinic()
+/* void Clinic::runClinic()
 {
     std::thread queueThread([this] {this->queue.addToQueue();});
-}
+} */
 
 ClientStorage& Clinic::getClients()
 {
     return this->clients;
-}
-
-void Clinic::addClient(std::string clientId){
-    Client newClient(clientId);
-    this->clients.addClient(newClient);
 }
