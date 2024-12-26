@@ -19,7 +19,7 @@ private:
 
 public:
     // Konstruktor
-    Queue(size_t span) : front(0), end(0), count(0), span(span) 
+    Queue() : front(0), end(0), count(0)
     {}
 
     ~Queue()
@@ -114,6 +114,11 @@ public:
     T& getData(int index)
     {
         return this->data[index];
+    }
+
+    void setSpan(size_t span)
+    {
+        this->span = span;
     }
 };
 

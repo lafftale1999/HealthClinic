@@ -1,9 +1,10 @@
 #include "../include/clinic.h"
 #include <iostream>
+#include <thread>
 
 Clinic::Clinic(int amountOfClients, Command c)
 {
-    if(!this->clients.getList().size() || c == CREATE)
+    if(this->clients.getList().size() != amountOfClients || this->clients.getList().empty() || c == CREATE)
     {
         Client::length = amountOfClients;
         if(this->clients.getList().size()) this->clients.getList().erase(this->clients.getList().begin(), this->clients.getList().end());
@@ -12,6 +13,13 @@ Clinic::Clinic(int amountOfClients, Command c)
     }
 
     else this->clients.readClientsFromFile();
+
+    this->queue.setSpan(amountOfClients);
+}
+
+void Clinic::runClinic()
+{
+    std::thread queueThread([this] {this->queue.addToQueue();});
 }
 
 ClientStorage& Clinic::getClients()
