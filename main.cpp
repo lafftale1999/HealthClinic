@@ -6,7 +6,7 @@
 int main()
 {
     try {
-        int amount = 10000000;
+        int amount = 100000;
         Clinic clinic(amount, CREATE);
 
         clinic.openClinic();

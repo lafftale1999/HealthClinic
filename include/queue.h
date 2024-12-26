@@ -6,6 +6,8 @@
 #include <condition_variable>
 #include <iostream>
 #include <atomic>
+#include <thread>
+#include <chrono>
 
 template <typename T, size_t SIZE>
 class Queue {
@@ -36,6 +38,8 @@ public:
 
     void addToQueue()
     {
+        srand(time(NULL));
+
         try {
             std::unique_lock<std::mutex> lock(this->mtx);
 
