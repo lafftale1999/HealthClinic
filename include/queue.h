@@ -8,17 +8,19 @@
 template <typename T, size_t SIZE>
 class Queue {
 private:
-    T data[this->SIZE];  // Statisk array för att lagra ködata
+    T data[SIZE];  // Statisk array för att lagra ködata
     size_t front;  // Pekare för första elementet
     size_t end;   // Pekare för sista elementet
     size_t count;  // Antal element i kön
+    size_t span;
     std::mutex mtx;
     std::condition_variable cv;
     bool stop = false;
 
 public:
     // Konstruktor
-    Queue() : front(0), end(0), count(0) {}
+    Queue() : front(0), end(0), count(0)
+    {}
 
     ~Queue()
     {
@@ -26,7 +28,7 @@ public:
         this->cv.notify_all();
     }
 
-    void addToQueue(int span)
+    void addToQueue()
     {
         std::unique_lock<std::mutex> lock(this->mtx);
 
@@ -38,9 +40,9 @@ public:
             
             if(stop) return;
 
-            int rnd = rand() % span;
+            int rnd = rand() % this->span;
 
-            this->enqueue(std::to_string(rnd));
+            this->enqueue(T);
 
             cv.notify_one();
 
@@ -48,7 +50,7 @@ public:
         }
     }
 
-    std::string getFromQueue()
+    T& getFromQueue()
     {
         std::unique_lock<std::mutex> lock(this->mtx);
 
@@ -56,7 +58,7 @@ public:
             return this->size() > 0;
         });
         
-        std::string item = this->data[this->front];
+        T item = this->data[this->front];
         this->dequeue(this->data[front]);
 
         cv.notify_one();
@@ -71,7 +73,7 @@ public:
         if (count == SIZE) {  // Om kön är full, kan vi inte lägga till fler element
             return false;  // Felkod - kön är full
         }
-        data[end] = item;  // Lägg till elementet i slutet av kön
+        this->data[end] = item;  // Lägg till elementet i slutet av kön
         end = (end + 1) % SIZE;  // Flytta end pekaren, med cirkulär hantering
         count++;  // Öka antalet element
         return true;
@@ -112,6 +114,11 @@ public:
     T& getData(int index)
     {
         return this->data[index];
+    }
+
+    void setSpan(size_t span)
+    {
+        this->span = span;
     }
 };
 

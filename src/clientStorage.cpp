@@ -1,9 +1,12 @@
 #include "../include/clientStorage.h"
 #include <ctime>
+#include <iostream>
+#include <fstream>
+#include <chrono>
 
 ClientStorage::ClientStorage()
 {
-
+    this->readClientsFromFile();
 }
 
 void ClientStorage::addClient(Client client)
@@ -13,6 +16,10 @@ void ClientStorage::addClient(Client client)
 
 void ClientStorage::createClients(int amount)
 {
+    std::cout << "CREATING CLIENTS" << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
     for(int i = 0; i < amount; i++)
     {
         this->addClient(Client(std::to_string(i)));
@@ -28,6 +35,63 @@ void ClientStorage::createClients(int amount)
         this->getClient(i) = this->getClient(j);
         this->getClient(j) = temp;
     }
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::cout << "CLIENT CREATION TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " milliseconds." << std::endl;
+}
+
+void ClientStorage::writeClientsToFile()
+{
+    std::cout << "WRITING CLIENTS TO FILE" << std::endl;
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::ofstream File(CLIENT_PATH);
+
+    for(Client client : this->clients)
+    {
+        File << client.getClientId() << std::endl;
+    }
+
+    File.close();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "WRITING TO FILE TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " milliseconds." << std::endl;
+}
+
+bool ClientStorage::readClientsFromFile()
+{
+    std::cout << "READING CLIENTS FROM FILE" << std::endl;
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::ifstream File(CLIENT_PATH);
+    std::string temp;
+
+    if(!File) 
+    {
+        std::cout << "FILE not found" << std::endl;
+        return false;
+    }
+
+    if(File.is_open())
+    {
+        File.seekg(0, std::ios::end);
+        if(File.tellg() == 0)
+        {
+            std::cout << "File is empty, creating clients" << std::endl;
+            return false;
+        }
+    }
+
+    while(std::getline(File, temp))
+    {
+        clients.emplace_back(temp);
+    }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "READING CLIENTS FROM FILE TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " milliseconds." << std::endl;
+
+    return true;
 }
 
 Client& ClientStorage::getClient(int index)

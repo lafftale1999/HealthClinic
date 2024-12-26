@@ -1,17 +1,25 @@
 #include "../include/clinic.h"
+#include <iostream>
+#include <thread>
 
 Clinic::Clinic(int amountOfClients, Command c)
 {
-    switch (c)
+    if(this->clients.getList().size() != amountOfClients || this->clients.getList().empty() || c == CREATE)
     {
-    case CREATE:
         Client::length = amountOfClients;
+        if(this->clients.getList().size()) this->clients.getList().erase(this->clients.getList().begin(), this->clients.getList().end());
         this->clients.createClients(amountOfClients);
-        break;
-    
-    default:
-        break;
+        this->clients.writeClientsToFile();
     }
+
+    else this->clients.readClientsFromFile();
+
+    this->queue.setSpan(amountOfClients);
+}
+
+void Clinic::runClinic()
+{
+    std::thread queueThread([this] {this->queue.addToQueue();});
 }
 
 ClientStorage& Clinic::getClients()
