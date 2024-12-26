@@ -12,11 +12,13 @@ class ClientStorage
 public:
     ClientStorage();
     void createClients(int amount);
+    void writeClientsToFile();
+    bool readClientsFromFile();
+
     void addClient(Client client);
     Client& getClient(int index);
     std::vector<Client>& getList();
-    Client* binarySearch(std::vector<Client>& clientlist,  const std::string target);
-    
+    Client* binarySearch(std::vector<Client>& clientlist, const std::string target);
 };
 
 #endif

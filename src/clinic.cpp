@@ -1,17 +1,17 @@
 #include "../include/clinic.h"
+#include <iostream>
 
 Clinic::Clinic(int amountOfClients, Command c)
 {
-    switch (c)
+    if(!this->clients.getList().size() || c == CREATE)
     {
-    case CREATE:
         Client::length = amountOfClients;
+        if(this->clients.getList().size()) this->clients.getList().erase(this->clients.getList().begin(), this->clients.getList().end());
         this->clients.createClients(amountOfClients);
-        break;
-    
-    default:
-        break;
+        this->clients.writeClientsToFile();
     }
+
+    else this->clients.readClientsFromFile();
 }
 
 ClientStorage& Clinic::getClients()
