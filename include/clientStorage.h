@@ -5,6 +5,7 @@
 #include <vector>
 
 #define CLIENT_PATH "data/clients.txt"
+
 class ClientStorage
 {
     std::vector<Client> clients;
@@ -15,10 +16,11 @@ public:
     void writeClientsToFile();
     bool readClientsFromFile();
 
-    void addClient(Client client);
+    void addClient(std::string clientId);
     Client& getClient(int index);
     std::vector<Client>& getList();
-    Client* binarySearch(std::vector<Client>& clientlist, const std::string target);
+    Client* binarySearch(Client target);
+    void sortClients();
 };
 
 #endif

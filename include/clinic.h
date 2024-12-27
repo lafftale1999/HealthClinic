@@ -3,6 +3,9 @@
 
 #include "clientStorage.h"
 #include "queue.h"
+#include "terminalGUI.h"
+
+#include <thread>
 
 typedef enum
 {
@@ -15,12 +18,17 @@ class Clinic
 {
     ClientStorage clients;
     Queue<int, 10> queue;
+    TerminalGUI GUI;
+    std::thread queueThread;
+    std::thread clinicThread;
+    
 
 public:
-    Clinic(int amountOfClients, Command c);
+    Clinic(unsigned int amountOfClients, Command c);
     void runClinic();
+    void openClinic();
     ClientStorage& getClients();
-    void addClient(std::string clientId);
+    void stopClinic();
 };
 
 #endif
