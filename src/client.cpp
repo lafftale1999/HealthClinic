@@ -18,6 +18,7 @@ void Client::setClientId(std::string clientId)
     this->clientId = padClientId(clientId);
 }
 
+// Rimsha
 std::string Client::padClientId(std::string id){
     return std::string(std::to_string(Client::length).length() - id.length(), '0') + id; 
 }
