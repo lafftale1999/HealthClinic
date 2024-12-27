@@ -17,10 +17,10 @@ void ClientStorage::addClient(std::string clientId)
     this->clients.emplace_back(clientId);
 }
 
+// Rimsha
 void ClientStorage::createClients(int amount)
 {
     std::cout << "CREATING CLIENTS" << std::endl;
-
     auto begin = std::chrono::high_resolution_clock::now();
 
     for(int i = 0; i < amount; i++)
@@ -38,12 +38,11 @@ void ClientStorage::createClients(int amount)
     }
 
     auto finish = std::chrono::high_resolution_clock::now();
-
     std::cout << "CLIENT CREATION TOOK: " << std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin).count() << " milliseconds." << std::endl << std::endl;
-
     std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
+// Rimsha
 void ClientStorage::writeClientsToFile()
 {
     std::cout << "WRITING CLIENTS TO FILE" << std::endl;
@@ -63,6 +62,7 @@ void ClientStorage::writeClientsToFile()
     std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
+// Rimsha
 bool ClientStorage::readClientsFromFile()
 {
     std::cout << "READING CLIENTS FROM FILE" << std::endl;

@@ -10,7 +10,6 @@ public:
     TerminalGUI();
     int printMenu(std::string headline, std::string message, std::vector<std::string> options);
     void clearScreen();
-
 };
 
 #endif

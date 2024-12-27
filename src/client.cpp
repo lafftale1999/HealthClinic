@@ -15,12 +15,11 @@ Client::Client(std::string clientId)
 
 void Client::setClientId(std::string clientId)
 {
-    this->clientId = padClientId(clientId); //Pad the ID before storing it.
+    this->clientId = padClientId(clientId);
 }
 
-//Padding helper function.
 std::string Client::padClientId(std::string id){
-    return std::string(std::to_string(Client::length).length() - id.length(), '0') + id; //Added leading zero. 
+    return std::string(std::to_string(Client::length).length() - id.length(), '0') + id; 
 }
 
 std::string Client::getClientId()
@@ -28,8 +27,7 @@ std::string Client::getClientId()
     return this->clientId;
 }
 
-// Comparison operator for sorting
 bool Client::operator<(const Client& other) const
 {
-    return this->clientId < other.clientId;  // Compare based on clientId
+    return this->clientId < other.clientId;
 }

@@ -12,56 +12,66 @@
 template <typename T, size_t SIZE>
 class Queue {
 private:
-    T data[SIZE];  // Statisk array för att lagra ködata
-    size_t front;  // Pekare för första elementet
-    size_t end;   // Pekare för sista elementet
-    size_t count;  // Antal element i kön
-    size_t span;
-    std::mutex mtx;
-    std::condition_variable cv;
-    std::atomic<bool> stop = false;
+    T data[SIZE];                   // Static array to store data
+    size_t front;                   // Pointer for first element
+    size_t end;                     // Pointer for last element
+    size_t count;                   // Amount of elements in array
+    size_t span;                    // Span for random numbers when adding to queue
+    std::mutex mtx;                 // Software mechanism to ensure two threads can't access the same resource at the same time
+    std::condition_variable cv;     // Software mechanism for controlling threads
+    std::atomic<bool> stop = false; // Variable for controlling when to stop threads
 
 public:
     // Konstruktor
     Queue() : front(0), end(0), count(0) {}
 
+    // Destruktor
     ~Queue()
     {
+        // Aquire the mutex and lock while we are changing the stop variable
         {
             std::unique_lock<std::mutex> lock(this->mtx);
-            stop = true; // Signalera avslutning
+            stop = true; // Signal that the threads are stopping
         }
+
+        // Notify all threads
         this->cv.notify_all(); // Väcka alla väntande trådar
-        std::cout << "[Queue] Destructor called, stop flag set" << std::endl;
     }
 
     void addToQueue()
     {
+        // Seeding our random generator
         srand(time(NULL));
 
+        // Put everything in a try catch block for security
         try {
+
+            // Aquire the mutex while we use the queue
             std::unique_lock<std::mutex> lock(this->mtx);
 
+            // Infinite while-loop while program is running
             while (true)
             {
+                // Condition variable - sleeps the thread until the lambda function returns true
                 this->cv.wait(lock, [this] {
                     return this->size() < SIZE || stop;
                 });
 
+                // If the program is done - exiting the loop
                 if (stop)
                 {
-                    std::cout << "[addToQueue] Stop flag detected, exiting loop" << std::endl;
                     break;
                 }
 
+                // creates a random number in span
                 int rnd = rand() % this->span;
 
+                // Adds it to queue and checks if it was successful
                 if (!this->enqueue(rnd)) std::cout << "[addToQueue] Client add failed (queue full)" << std::endl;
 
+                // Notify the other thread
                 this->cv.notify_one();
             }
-
-            std::cout << "[addToQueue] Finished processing queue" << std::endl;
         }
 
         catch (const std::exception& e)
@@ -72,24 +82,31 @@ public:
 
     T getFromQueue()
     {
+        // Put everything in a try-catch block for security
         try
         {
+            // Aquire the mutex and lock
             std::unique_lock<std::mutex> lock(this->mtx);
 
+            // Sleep the thread until the lambda expression returns true
             this->cv.wait(lock, [this] {
                 return this->size() > 0 || stop;
             });
 
+            // Check if the thread should be running
             if (stop && this->size() == 0)
             {
                 std::cout << "[getFromQueue] Stop flag detected and queue is empty" << std::endl;
                 throw std::runtime_error("Queue stopped and empty");
             }
 
+            // Get item from queue
             T item = this->data[this->front];
 
+            // Remove item from queue
             this->dequeue(this->data[front]);
 
+            // Notify thread to check their condition variable
             this->cv.notify_one();
 
             return item;
@@ -98,7 +115,7 @@ public:
         catch (const std::exception& e)
         {
             std::cerr << "[getFromQueue] Exception: " << e.what() << std::endl;
-            throw; // Vidarebefordra undantaget
+            throw; // Pass on the exception
         }
     }
 
