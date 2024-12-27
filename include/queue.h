@@ -23,8 +23,7 @@ private:
 
 public:
     // Konstruktor
-    Queue() : front(0), end(0), count(0)
-    {}
+    Queue() : front(0), end(0), count(0) {}
 
     ~Queue()
     {

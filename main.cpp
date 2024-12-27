@@ -5,16 +5,11 @@
 
 int main()
 {
-    try {
-        int amount = 100000;
-        Clinic clinic(amount, CREATE);
+    int amount = 100000;
+    Clinic clinic(amount, CREATE);
 
-        clinic.openClinic();
-    }
-    catch (const std::exception& ex) {
-        std::cerr << "Error: " << ex.what() << std::endl;
-    }
-
+    clinic.openClinic();
+    
     return 0;
 }
 
