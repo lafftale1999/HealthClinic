@@ -25,7 +25,7 @@ Created the binary search and advised Carl on threads and class creation.
 Created the way we generate and shuffel our customers. Also for writing and reading from file.
 
 **Carl Broman**
-Created relevant classes except Queue, threading and puting together the code.
+Created relevant classes (except Queue), threading, RingQueue and assemble the code written by everyone.
 
 ### Program in it's whole
 We have created a simulated Health Clinic where we have two thread working simultainously. One is responsible for generating new potential clients to the queue and the other is for "handling" the clients by looking for them in our customer system.
