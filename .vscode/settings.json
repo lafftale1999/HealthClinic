@@ -73,6 +73,11 @@
             "cwd": "c:\\Users\\prett\\Desktop\\nackadev2024\\grupparbete-ds-alg\\HealthClinic",
             "binaryPath": "c:\\Users\\prett\\Desktop\\nackadev2024\\grupparbete-ds-alg\\HealthClinic\\main.exe",
             "binaryArgs": []
+        },
+        {
+            "cwd": "c:\\Users\\prett\\Desktop\\dev\\grupparbete-ds-alg\\HealthClinic",
+            "binaryPath": "c:\\Users\\prett\\Desktop\\dev\\grupparbete-ds-alg\\HealthClinic\\main.exe",
+            "binaryArgs": []
         }
     ]
 }

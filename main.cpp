@@ -6,8 +6,8 @@
 int main()
 {
     int amount = 100000;
-    Clinic clinic(amount, CREATE);
-
+    Clinic clinic(amount, N_CREATE);
+    
     clinic.openClinic();
     
     return 0;
