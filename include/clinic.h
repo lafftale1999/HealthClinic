@@ -2,15 +2,33 @@
 #define CLINIC_H
 
 #include "clientStorage.h"
+#include "queue.h"
+#include "terminalGUI.h"
 
-class Clinic {
-private:
+#include <thread>
+
+typedef enum
+{
+    CREATE,
+    N_CREATE
+}Command;
+
+
+class Clinic
+{
     ClientStorage clients;
+    Queue<int, 10> queue;
+    TerminalGUI GUI;
+    std::thread queueThread;
+    std::thread clinicThread;
+    
 
 public:
-    Clinic();
+    Clinic(unsigned int amountOfClients, Command c);
+    void runClinic();
+    void openClinic();
     ClientStorage& getClients();
-    void addClient(std::string clientId);
+    void stopClinic();
 };
 
 #endif

@@ -3,22 +3,20 @@
 
 #include <string>
 
-
 class Client
 {
 private: 
     std::string clientId;
-    static const size_t ID_LENGTH = 2; // Standard length for patients ID.
 
 public:
-    Client();//Constructor
-    explicit Client(std::string clientId);// Constructor with parameter.
-    Client(const Client& other); // Copy constructor
+    static int length;
+    Client();
+    Client(std::string clientId);
 
-    
+    bool operator<(const Client& other) const;
     void setClientId(std::string clientId);
     std::string getClientId();
-    std::string padClientId(std::string id);//helper function for padding.
+    std::string padClientId(std::string id);
 };
 
 #endif
