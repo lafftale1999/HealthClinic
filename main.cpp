@@ -1,8 +1,6 @@
 #include "include/clientStorage.h"
 #include "include/clinic.h"
 #include "include/queue.h"
-#include "include/ringQueue.h"
-#include <iostream>
 
 int main()
 {
