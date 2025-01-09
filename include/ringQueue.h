@@ -25,7 +25,11 @@ public:
         }
 
         T item = queue[head];
-        head = (head + 1) % N;
+
+        for(int i = 0; i < size - 1; i++)
+        {
+            queue[i] = queue[i + 1];
+        }
 
         size--;
         isFull = false;
